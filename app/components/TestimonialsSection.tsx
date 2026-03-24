@@ -9,7 +9,7 @@ export default function TestimonialsSection() {
   return (
     <section
       aria-labelledby="testimonials-heading"
-      className="bg-[#d9d9d9] px-4 py-16 md:px-6"
+      className="bg-[var(--ll-beige)] px-4 py-16 md:px-6"
     >
       <div className="mx-auto max-w-6xl">
         <h2
@@ -23,7 +23,7 @@ export default function TestimonialsSection() {
           {testimonials.map((review) => (
             <article
               key={review.name}
-              className="rounded-xl bg-white p-4 shadow-sm"
+              className="rounded-2xl bg-[var(--ll-surface)] p-4 shadow-sm"
             >
               <p className="mb-2 text-sm font-semibold text-[#333333]">
                 Rating: {review.rating}

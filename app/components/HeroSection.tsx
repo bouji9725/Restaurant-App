@@ -35,11 +35,11 @@ export default function HeroSection() {
 
         <div className="md:mb-[-5rem] md:justify-self-end">
           <Image
-            src="/hero-food.jpg"
+            src="/restaurant.jpg"
             alt="Little Lemon signature dishes"
-            width={380}
+            width={520}
             height={460}
-            className="w-full max-w-[380px] rounded-2xl object-cover shadow-lg"
+            className="w-full max-w-[560px] rounded-2xl object-cover shadow-lg"
           />
         </div>
       </div>

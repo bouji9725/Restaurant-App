@@ -5,7 +5,7 @@ const specials = [
   {
     title: "Greek Salad",
     price: "$12.99",
-    image: "/greek-salad.jpg",
+    image: "/greek salad.jpg",
     alt: "Greek salad",
     description:
       "The famous greek salad of crispy lettuce, peppers, olives and our Chicago style feta cheese, garnished with crunchy garlic and rosemary croutons.",
@@ -13,7 +13,7 @@ const specials = [
   {
     title: "Bruchetta",
     price: "$5.99",
-    image: "/bruchetta.jpg",
+    image: "/bruchetta.svg",
     alt: "Bruchetta",
     description:
       "Our Bruchetta is made from grilled bread that has been smeared with garlic and seasoned with salt and olive oil.",
@@ -21,7 +21,7 @@ const specials = [
   {
     title: "Lemon Dessert",
     price: "$5.00",
-    image: "/lemon-dessert.jpg",
+    image: "/lemon dessert.jpg",
     alt: "Lemon dessert",
     description:
       "This comes straight from grandma's recipe book, every last ingredient has been sourced and is as authentic as can be imagined.",
@@ -32,7 +32,7 @@ export default function HighlightsSection() {
   return (
     <section
       aria-labelledby="highlights-heading"
-      className="bg-[#EDEFEE] px-4 pb-16 pt-32 md:px-6"
+      className="bg-[var(--ll-surface)] px-4 pb-16 pt-32 md:px-6"
     >
       <div className="mx-auto max-w-6xl">
         <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
@@ -55,8 +55,7 @@ export default function HighlightsSection() {
           {specials.map((dish) => (
             <article
               key={dish.title}
-              className="overflow-hidden rounded-2xl bg-[#d9d9d9] shadow-md"
-            >
+className="overflow-hidden rounded-2xl bg-[var(--ll-beige)] shadow-md"            >
               <Image
                 src={dish.image}
                 alt={dish.alt}

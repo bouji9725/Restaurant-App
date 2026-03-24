@@ -15,7 +15,7 @@ export default function Nav() {
     <>
       <Link href="/" aria-label="Little Lemon homepage" className="shrink-0">
         <Image
-          src="/little-lemon-logo.png"
+          src="/Logo.svg"
           alt="Little Lemon logo"
           width={180}
           height={50}
@@ -29,7 +29,7 @@ export default function Nav() {
             <li key={link.label}>
               <Link
                 href={link.href}
-                className="transition hover:text-[#495E57]"
+                className="transition hover:text-[var(--ll-green)]"
               >
                 {link.label}
               </Link>

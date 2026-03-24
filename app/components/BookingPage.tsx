@@ -45,7 +45,7 @@ export default function BookingPage() {
   }
 
   return (
-    <main className="bg-[#EDEFEE] px-4 py-10 md:px-6 md:py-16">
+    <main className="bg-[var(--ll-surface)] px-4 py-10 md:px-6 md:py-16">
       <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1fr_0.9fr]">
         <div>
           <h1 className="mb-2 font-serif text-5xl leading-none text-[#495E57] md:text-6xl">

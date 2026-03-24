@@ -28,14 +28,14 @@ export default function AboutSection() {
 
         <div className="relative min-h-[420px]">
           <Image
-            src="/about-mario.jpg"
+            src="/Mario and Adrian A.jpg"
             alt="Mario at Little Lemon"
             width={260}
             height={320}
             className="absolute bottom-0 left-0 rounded-2xl object-cover shadow-lg"
           />
           <Image
-            src="/about-adrian.jpg"
+            src="/Mario and Adrian b.jpg"
             alt="Adrian at Little Lemon"
             width={260}
             height={320}

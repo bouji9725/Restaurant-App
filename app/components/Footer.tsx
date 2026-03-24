@@ -12,11 +12,11 @@ const footerLinks = [
 
 export default function Footer() {
   return (
-    <footer className="bg-[#d9d9d9] px-4 py-12 md:px-6">
+    <footer className="bg-[var(--ll-green)] px-4 py-12 text-[var(--ll-surface)] md:px-6">
       <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-2 xl:grid-cols-[140px_1fr_1fr_1fr]">
         <div>
           <Image
-            src="/little-lemon-logo.png"
+            src="/logo.svg"
             alt="Little Lemon logo"
             width={120}
             height={120}
@@ -24,7 +24,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <h3 className="mb-4 text-lg font-bold text-[#333333]">
+          <h3 className="mb-4 text-lg font-bold text-[var(--ll-surface)]">
             Doormat Navigation
           </h3>
           <ul className="space-y-2 text-sm text-[#333333]">
