@@ -1,8 +1,9 @@
 "use client";
 
 import { useReducer, useState } from "react";
-import BookingForm from "@/components/BookingForm";
-import BookingSlots from "@/components/BookingSlots";
+import BookingForm from "./BookingForm";
+import BookingSlots from "./BookingSlots";
+import { initializeTimes, updateTimes } from "./bookingUtils";
 
 type FormData = {
   date: string;
@@ -10,25 +11,6 @@ type FormData = {
   guests: number;
   occasion: string;
 };
-
-type Action =
-  | { type: "UPDATE_TIMES"; date: string }
-  | { type: "BOOK_TIME"; time: string };
-
-function initializeTimes() {
-  return ["17:00", "18:00", "19:00", "20:00", "21:00"];
-}
-
-function updateTimes(state: string[], action: Action) {
-  switch (action.type) {
-    case "UPDATE_TIMES":
-      return ["17:00", "18:00", "19:00", "20:00", "21:00"];
-    case "BOOK_TIME":
-      return state.filter((time) => time !== action.time);
-    default:
-      return state;
-  }
-}
 
 export default function BookingPage() {
   const [availableTimes, dispatch] = useReducer(updateTimes, [], initializeTimes);
