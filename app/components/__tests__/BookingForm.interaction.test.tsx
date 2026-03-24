@@ -7,6 +7,7 @@ describe("BookingForm interactions", () => {
   test("dispatches UPDATE_TIMES when the date changes", () => {
     const mockDispatch = jest.fn();
     const mockSetFormData = jest.fn();
+    const mockSubmitForm = jest.fn();
 
     render(
       <BookingForm
@@ -19,6 +20,7 @@ describe("BookingForm interactions", () => {
         setFormData={mockSetFormData}
         availableTimes={["17:00", "18:00", "19:00"]}
         dispatch={mockDispatch}
+        submitForm={mockSubmitForm}
       />
     );
 
@@ -39,6 +41,7 @@ describe("BookingForm interactions", () => {
   test("calls setFormData when a time is selected", () => {
     const mockDispatch = jest.fn();
     const mockSetFormData = jest.fn();
+    const mockSubmitForm = jest.fn();
 
     render(
       <BookingForm
@@ -51,6 +54,7 @@ describe("BookingForm interactions", () => {
         setFormData={mockSetFormData}
         availableTimes={["17:00", "18:00", "19:00"]}
         dispatch={mockDispatch}
+        submitForm={mockSubmitForm}
       />
     );
 
@@ -63,9 +67,10 @@ describe("BookingForm interactions", () => {
     expect(mockSetFormData).toHaveBeenCalled();
   });
 
-  test("dispatches BOOK_TIME when the form is submitted with valid data", () => {
+  test("calls submitForm when the form is submitted with valid data", () => {
     const mockDispatch = jest.fn();
     const mockSetFormData = jest.fn();
+    const mockSubmitForm = jest.fn();
 
     render(
       <BookingForm
@@ -78,6 +83,7 @@ describe("BookingForm interactions", () => {
         setFormData={mockSetFormData}
         availableTimes={["17:00", "18:00", "19:00"]}
         dispatch={mockDispatch}
+        submitForm={mockSubmitForm}
       />
     );
 
@@ -87,16 +93,11 @@ describe("BookingForm interactions", () => {
 
     fireEvent.click(submitButton);
 
-    expect(mockDispatch).toHaveBeenCalledWith({
-      type: "BOOK_TIME",
+    expect(mockSubmitForm).toHaveBeenCalledWith({
+      date: "2026-03-24",
       time: "18:00",
-    });
-
-    expect(mockSetFormData).toHaveBeenCalledWith({
-      date: "",
-      time: "",
-      guests: 1,
-      occasion: "",
+      guests: 2,
+      occasion: "Birthday",
     });
   });
 });

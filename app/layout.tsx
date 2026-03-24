@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -20,8 +21,7 @@ export const metadata: Metadata = {
     title: "Little Lemon Restaurant",
     description:
       "Enjoy authentic Mediterranean cuisine in Chicago. Reserve your table at Little Lemon today.",
-    //Replace it later with the real one
-     url: "https://your-domain.com",
+    url: "https://your-domain.com",
     siteName: "Little Lemon",
     images: [
       {
@@ -39,8 +39,7 @@ export const metadata: Metadata = {
     title: "Little Lemon Restaurant",
     description:
       "Reserve your table at Little Lemon and enjoy Mediterranean cuisine in Chicago.",
-    //Replace it later the image
-      images: ["/og-image.jpg"],
+    images: ["/og-image.jpg"],
   },
 };
 
@@ -54,7 +53,14 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+
+        <Script
+          src="https://raw.githubusercontent.com/courseraap/capstone/main/api.js"
+          strategy="beforeInteractive"
+        />
+      </body>
     </html>
   );
 }

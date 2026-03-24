@@ -1,6 +1,7 @@
 "use client";
 
-import { useReducer, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
+import { useRouter } from "next/navigation";
 import BookingForm from "./BookingForm";
 import BookingSlots from "./BookingSlots";
 import { initializeTimes, updateTimes } from "./bookingUtils";
@@ -13,6 +14,8 @@ type FormData = {
 };
 
 export default function BookingPage() {
+  const router = useRouter();
+
   const [availableTimes, dispatch] = useReducer(updateTimes, [], initializeTimes);
 
   const [formData, setFormData] = useState<FormData>({
@@ -21,6 +24,25 @@ export default function BookingPage() {
     guests: 1,
     occasion: "",
   });
+
+  useEffect(() => {
+    dispatch({ type: "INITIALIZE_TIMES" });
+  }, []);
+
+  function submitForm(formData: FormData) {
+    if (typeof window !== "undefined" && window.submitAPI) {
+      const success = window.submitAPI(formData);
+
+      if (success) {
+        dispatch({
+          type: "BOOK_TIME",
+          time: formData.time,
+        });
+
+        router.push("/reservations/confirmed");
+      }
+    }
+  }
 
   return (
     <main className="bg-[#EDEFEE] px-4 py-10 md:px-6 md:py-16">
@@ -39,6 +61,7 @@ export default function BookingPage() {
             setFormData={setFormData}
             availableTimes={availableTimes}
             dispatch={dispatch}
+            submitForm={submitForm}
           />
         </div>
 

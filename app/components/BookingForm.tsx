@@ -12,9 +12,11 @@ type BookingFormProps = {
   setFormData: React.Dispatch<React.SetStateAction<FormData>>;
   availableTimes: string[];
   dispatch: React.Dispatch<
+    | { type: "INITIALIZE_TIMES" }
     | { type: "UPDATE_TIMES"; date: string }
     | { type: "BOOK_TIME"; time: string }
   >;
+  submitForm: (formData: FormData) => void;
 };
 
 export default function BookingForm({
@@ -22,6 +24,7 @@ export default function BookingForm({
   setFormData,
   availableTimes,
   dispatch,
+  submitForm,
 }: BookingFormProps) {
   function handleDateChange(e: React.ChangeEvent<HTMLInputElement>) {
     const selectedDate = e.target.value;
@@ -40,25 +43,7 @@ export default function BookingForm({
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-
-    if (!formData.date || !formData.time || !formData.occasion) {
-      alert("Please complete all required fields.");
-      return;
-    }
-
-    dispatch({
-      type: "BOOK_TIME",
-      time: formData.time,
-    });
-
-    alert("Reservation submitted successfully!");
-
-    setFormData({
-      date: "",
-      time: "",
-      guests: 1,
-      occasion: "",
-    });
+    submitForm(formData);
   }
 
   return (

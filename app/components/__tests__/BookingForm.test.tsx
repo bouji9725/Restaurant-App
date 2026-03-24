@@ -14,6 +14,7 @@ describe("BookingForm", () => {
         setFormData={jest.fn()}
         availableTimes={["17:00", "18:00", "19:00"]}
         dispatch={jest.fn()}
+        submitForm={jest.fn()}
       />
     );
 
