@@ -1,70 +1,74 @@
 import Image from "next/image";
 import Link from "next/link";
 
+const footerLinks = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
+  { href: "/menu", label: "Menu" },
+  { href: "/reservations", label: "Reservations" },
+  { href: "/order-online", label: "Order Online" },
+  { href: "/login", label: "Login" },
+];
+
 export default function Footer() {
   return (
-    <footer>
-      <div>
-        <Image
-          src="/little-lemon-logo.png"
-          alt="Little Lemon logo"
-          width={120}
-          height={120}
-        />
-      </div>
+    <footer className="bg-[#d9d9d9] px-4 py-12 md:px-6">
+      <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-2 xl:grid-cols-[140px_1fr_1fr_1fr]">
+        <div>
+          <Image
+            src="/little-lemon-logo.png"
+            alt="Little Lemon logo"
+            width={120}
+            height={120}
+          />
+        </div>
 
-      <div>
-        <h2>Doormat Navigation</h2>
-        <ul>
-          <li>
-            <Link href="/">Home</Link>
-          </li>
-          <li>
-            <Link href="/about">About</Link>
-          </li>
-          <li>
-            <Link href="/menu">Menu</Link>
-          </li>
-          <li>
-            <Link href="/reservations">Reservations</Link>
-          </li>
-          <li>
-            <Link href="/order-online">Order Online</Link>
-          </li>
-          <li>
-            <Link href="/login">Login</Link>
-          </li>
-        </ul>
-      </div>
+        <div>
+          <h3 className="mb-4 text-lg font-bold text-[#333333]">
+            Doormat Navigation
+          </h3>
+          <ul className="space-y-2 text-sm text-[#333333]">
+            {footerLinks.map((link) => (
+              <li key={link.label}>
+                <Link href={link.href} className="hover:text-[#495E57]">
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
 
-      <div>
-        <h2>Contact</h2>
-        <address>
-          <p>123 Little Lemon Street, Chicago</p>
-          <p>(123) 456-7890</p>
-          <p>hello@littlelemon.com</p>
-        </address>
-      </div>
+        <div>
+          <h3 className="mb-4 text-lg font-bold text-[#333333]">Contact</h3>
+          <address className="space-y-2 text-sm not-italic text-[#333333]">
+            <p>123 Little Lemon Street, Chicago</p>
+            <p>(123) 456-7890</p>
+            <p>hello@littlelemon.com</p>
+          </address>
+        </div>
 
-      <div>
-        <h2>Social Media Links</h2>
-        <ul>
-          <li>
-            <Link href="https://facebook.com" target="_blank">
-              Facebook
-            </Link>
-          </li>
-          <li>
-            <Link href="https://instagram.com" target="_blank">
-              Instagram
-            </Link>
-          </li>
-          <li>
-            <Link href="https://x.com" target="_blank">
-              X
-            </Link>
-          </li>
-        </ul>
+        <div>
+          <h3 className="mb-4 text-lg font-bold text-[#333333]">
+            Social Media Links
+          </h3>
+          <ul className="space-y-2 text-sm text-[#333333]">
+            <li>
+              <Link href="https://facebook.com" className="hover:text-[#495E57]">
+                Facebook
+              </Link>
+            </li>
+            <li>
+              <Link href="https://instagram.com" className="hover:text-[#495E57]">
+                Instagram
+              </Link>
+            </li>
+            <li>
+              <Link href="https://x.com" className="hover:text-[#495E57]">
+                X
+              </Link>
+            </li>
+          </ul>
+        </div>
       </div>
     </footer>
   );
