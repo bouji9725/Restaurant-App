@@ -1,22 +1,21 @@
 "use client";
 
-type FormData = {
-  date: string;
-  time: string;
-  guests: number;
-  occasion: string;
-};
+import {
+  BookingFormData,
+  validateBookingForm,
+  isBookingFormValid,
+} from "./validation";
 
 type BookingFormProps = {
-  formData: FormData;
-  setFormData: React.Dispatch<React.SetStateAction<FormData>>;
+  formData: BookingFormData;
+  setFormData: React.Dispatch<React.SetStateAction<BookingFormData>>;
   availableTimes: string[];
   dispatch: React.Dispatch<
     | { type: "INITIALIZE_TIMES" }
     | { type: "UPDATE_TIMES"; date: string }
     | { type: "BOOK_TIME"; time: string }
   >;
-  submitForm: (formData: FormData) => void;
+  submitForm: (formData: BookingFormData) => void;
 };
 
 export default function BookingForm({
@@ -26,6 +25,9 @@ export default function BookingForm({
   dispatch,
   submitForm,
 }: BookingFormProps) {
+  const errors = validateBookingForm(formData);
+  const isValid = isBookingFormValid(formData);
+
   function handleDateChange(e: React.ChangeEvent<HTMLInputElement>) {
     const selectedDate = e.target.value;
 
@@ -43,6 +45,11 @@ export default function BookingForm({
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    if (!isValid) {
+      return;
+    }
+
     submitForm(formData);
   }
 
@@ -50,6 +57,7 @@ export default function BookingForm({
     <form
       onSubmit={handleSubmit}
       className="grid gap-6 rounded-2xl bg-white p-6 shadow-md"
+      aria-label="Booking form"
     >
       <div className="grid gap-2">
         <label htmlFor="res-date" className="font-semibold text-[#333333]">
@@ -60,9 +68,18 @@ export default function BookingForm({
           type="date"
           value={formData.date}
           onChange={handleDateChange}
-          className="min-h-12 rounded-xl border border-gray-300 px-4 outline-none transition focus:border-[#495E57]"
+          min={new Date().toISOString().split("T")[0]}
           required
+          aria-label="Choose reservation date"
+          aria-invalid={!!errors.date}
+          aria-describedby={errors.date ? "date-error" : undefined}
+          className="min-h-12 rounded-xl border border-gray-300 px-4 outline-none transition focus:border-[#495E57]"
         />
+        {errors.date && (
+          <p id="date-error" className="text-sm text-red-600">
+            {errors.date}
+          </p>
+        )}
       </div>
 
       <div className="grid gap-2">
@@ -78,8 +95,11 @@ export default function BookingForm({
               time: e.target.value,
             }))
           }
-          className="min-h-12 rounded-xl border border-gray-300 px-4 outline-none transition focus:border-[#495E57]"
           required
+          aria-label="Choose reservation time"
+          aria-invalid={!!errors.time}
+          aria-describedby={errors.time ? "time-error" : undefined}
+          className="min-h-12 rounded-xl border border-gray-300 px-4 outline-none transition focus:border-[#495E57]"
         >
           <option value="">Select a time</option>
           {availableTimes.map((time) => (
@@ -88,6 +108,11 @@ export default function BookingForm({
             </option>
           ))}
         </select>
+        {errors.time && (
+          <p id="time-error" className="text-sm text-red-600">
+            {errors.time}
+          </p>
+        )}
       </div>
 
       <div className="grid gap-2">
@@ -99,6 +124,7 @@ export default function BookingForm({
           type="number"
           min={1}
           max={10}
+          step={1}
           value={formData.guests}
           onChange={(e) =>
             setFormData((prev) => ({
@@ -106,9 +132,17 @@ export default function BookingForm({
               guests: Number(e.target.value),
             }))
           }
-          className="min-h-12 rounded-xl border border-gray-300 px-4 outline-none transition focus:border-[#495E57]"
           required
+          aria-label="Number of guests"
+          aria-invalid={!!errors.guests}
+          aria-describedby={errors.guests ? "guests-error" : undefined}
+          className="min-h-12 rounded-xl border border-gray-300 px-4 outline-none transition focus:border-[#495E57]"
         />
+        {errors.guests && (
+          <p id="guests-error" className="text-sm text-red-600">
+            {errors.guests}
+          </p>
+        )}
       </div>
 
       <div className="grid gap-2">
@@ -124,21 +158,31 @@ export default function BookingForm({
               occasion: e.target.value,
             }))
           }
-          className="min-h-12 rounded-xl border border-gray-300 px-4 outline-none transition focus:border-[#495E57]"
           required
+          aria-label="Choose occasion"
+          aria-invalid={!!errors.occasion}
+          aria-describedby={errors.occasion ? "occasion-error" : undefined}
+          className="min-h-12 rounded-xl border border-gray-300 px-4 outline-none transition focus:border-[#495E57]"
         >
           <option value="">Select occasion</option>
           <option value="Birthday">Birthday</option>
           <option value="Anniversary">Anniversary</option>
         </select>
+        {errors.occasion && (
+          <p id="occasion-error" className="text-sm text-red-600">
+            {errors.occasion}
+          </p>
+        )}
       </div>
 
       <button
-        type="submit"
-        className="inline-flex min-h-14 items-center justify-center rounded-2xl bg-[#F4CE14] px-6 font-bold text-black transition hover:opacity-90"
-      >
-        Submit Reservation
-      </button>
+  type="submit"
+  disabled={!isValid}
+  aria-label="Submit Reservation"
+  className="inline-flex min-h-14 items-center justify-center rounded-2xl bg-[#F4CE14] px-6 font-bold text-black transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+>
+  Submit Reservation
+</button>
     </form>
   );
 }
